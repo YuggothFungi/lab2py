@@ -185,15 +185,17 @@ def main():
     create_teachers_csv(teachers)
     create_inverted_lists()
     
-    # Пример параметров поиска
-    rank = "Профессор|Доцент"
-    degree = "Кандидат наук" 
-    position = "Доцент"
-    speciality = "Математика|Физика"
+    # Словарь с критериями поиска (можно указать любое количество критериев)
+    search_criteria = {
+        'rank': "Профессор|Доцент",
+        'degree': "Кандидат наук",
+        # 'position': "Доцент",  # можно закомментировать любой критерий
+        'speciality': "Математика|Физика"
+    }
     
     # Засекаем и выводим время поиска   
     start_time = time.time()
-    matching_teachers = search_teachers(rank, degree, position, speciality)
+    matching_teachers = search_teachers(**search_criteria)  # распаковываем словарь в именованные аргументы
     end_time = time.time()
     print(f"\nПоиск занял {(end_time - start_time)*1000:.2f} миллисекунд")
     
@@ -205,6 +207,8 @@ def main():
             for teacher in matching_teachers:
                 f.write(f'{teacher}\n')
     else:
+        with open('found_teachers.csv', 'w', encoding='utf-8') as f:
+            f.write('Преподаватели не найдены\n')
         print("Преподаватели не найдены")
 
 if __name__ == "__main__":
