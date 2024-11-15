@@ -79,7 +79,7 @@ class TestLab2(unittest.TestCase):
             rank="Профессор",
             degree="Без степени",
             position="Преподаватель",
-            speciality="Физика"
+            speciality="Философия"
         )
         self.assertEqual(len(results), 0)
 
